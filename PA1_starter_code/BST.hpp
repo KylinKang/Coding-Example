@@ -253,6 +253,5 @@ void BST<Data>::deleteAll(BSTNode<Data>* n)
   if(n->left != nullptr) { deleteAll(n->left); }
   if(n->right != nullptr) { deleteAll(n->right); }
   delete n;
-  isize = 0;
 }
 #endif //BST_HPP
