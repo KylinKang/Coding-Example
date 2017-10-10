@@ -57,19 +57,15 @@ BSTNode<Data>* BSTNode<Data>::successor()
   }
   
   else { // if this node has no right child. we go to the root
-    if(parent == nullptr) {return nullptr;}
     BSTNode<Data>* current = parent;
-    // get the root node
-    while(current->parent != nullptr) { current = current->parent; }
-    // then find the leftmost node in the right subtree of root
-    if(current->right != nullptr) {
-      BSTNode<Data>* leftchild = current->right;
-      while(current->left != nullptr) {
-        leftchild = leftchild->left;
+    while(current != nullptr) {
+      if(current->data < data) {
+        current = current->parent;
+      } else {
+        return current;
       }
-      return leftchild;
     }
-    else {return current;}   
+    return nullptr;
   }
 }
 

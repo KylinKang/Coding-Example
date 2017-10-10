@@ -124,6 +124,7 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
     if(item < current->data) { // go to the left child
       if(current->left == nullptr) {
         current->left = new BSTNode<Data>(item);
+	current->left->parent = current;
         return std::pair<BSTIterator<Data>, bool>(iterator(current->left), true);
       } 
       else {
@@ -134,6 +135,7 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
     else { // go to the right child
       if(current->right == nullptr) {
         current->right = new BSTNode<Data>(item);
+	current->right->parent = current;
         return std::pair<BSTIterator<Data>, bool>(iterator(current->right), true);
       }
       else {
