@@ -81,6 +81,10 @@ private:
    * Helper function for the begin method above.
    */ 
   static BSTNode<Data>* first(BSTNode<Data>* root);
+  
+  /** Helper method for giving the height of BST
+   */
+  unsigned int heightHelper(BSTNode<Data>* current) const;
 
   /** do a postorder traversal, deleting nodes
    */
@@ -110,10 +114,34 @@ BST<Data>::~BST() {
  */
 template <typename Data>
 std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
-  // TODO
-  // REPLACE THE LINE BELOW
-  return std::pair<BSTIterator<Data>, bool>(BSTIterator<Data>(0), false);
+  if(root == nullptr) { 
+    root = new BSTNode<Data>(item); 
+    return std::pair<BSTIterator<Data>, bool>(iterator(root), true);
+  }
+  
+  BSTNode<Data>* current = root;
+  while(current->data < item || item < current->data) {
+    if(item < current->data) { // go to the left child
+      if(current->left == nullptr) {
+        current->left = new BSTNode<Data>(item);
+        return std::pair<BSTIterator<Data>, bool>(iterator(current->left), true);
+      } 
+      else {
+        current = current->left;
+      }
+    }
 
+    else { // go to the right child
+      if(current->right == nullptr) {
+        current->right = new BSTNode<Data>(item);
+        return std::pair<BSTIterator<Data>, bool>(iterator(current->right), true);
+      }
+      else {
+      	current = current->right;
+      }
+    }
+  }
+  return std::pair<BSTIterator<Data>, bool>(iterator(current), false);
 }
 
 
@@ -127,9 +155,19 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
 template <typename Data>
 BSTIterator<Data> BST<Data>::find(const Data& item) const
 {
-  // TODO
-  return BSTIterator<Data>(nullptr);
-
+  if(root == nullptr) { return iterator(0); }
+  BSTNode<Data>* current = root;
+  while(current->data < item || item < current->data) {
+    if(item < current->data) { 
+      if(current->left == nullptr) {return iterator(current);}
+      else { current = current->left; }
+    }
+    else {
+      if(current->right == nullptr) {return iterator(current); }
+      else { current = current->right; }
+    }
+  }
+  return iterator(current); 
 }
 
   
@@ -146,8 +184,21 @@ unsigned int BST<Data>::size() const
 template <typename Data> 
 unsigned int BST<Data>::height() const
 {
-  // TODO
-  return 0;
+  if(root == nullptr) { return 0; }
+  return heightHelper(root);
+}
+
+/** Helper method to find the height of BST
+ */
+template <typename Data>
+unsigned int BST<Data>::heightHelper(BSTNode<Data>* current) const
+{
+  int leftlength = 0;
+  int rightlength = 0;
+  if(current->left != nullptr) { leftlength + heightHelper(current->left); }
+  if(current->right != nullptr) { rightlength + heightHelper(current->right); }
+  if(leftlength < rightlength) { return 1 + rightlength; }
+  else { return 1 + leftlength; }
 }
 
 
@@ -156,8 +207,7 @@ unsigned int BST<Data>::height() const
 template <typename Data>
 bool BST<Data>::empty() const
 {
-  // TODO
-  return false;
+  return isize == 0;
 }
 
 /** Return an iterator pointing to the first (smallest) item in the BST.
@@ -182,8 +232,12 @@ BSTIterator<Data> BST<Data>::end() const
 template <typename Data>
 BSTNode<Data>* BST<Data>::first(BSTNode<Data>* root)
 {
-  // TODO
-  return nullptr;
+  if(root == nullptr) { return nullptr; }
+  BSTNode<Data>* current = root;
+  while(current->left != nullptr) {
+    current = current->left;
+  }
+  return current;
 }
 
 /** do a postorder traversal, deleting nodes
@@ -191,9 +245,8 @@ BSTNode<Data>* BST<Data>::first(BSTNode<Data>* root)
 template <typename Data>
 void BST<Data>::deleteAll(BSTNode<Data>* n)
 {
-  // TODO
+  if(n->left != nullptr) { deleteAll(n->left); }
+  if(n->right != nullptr) { deleteAll(n->right); }
+  n = nullptr;
 }
-
-
-
 #endif //BST_HPP

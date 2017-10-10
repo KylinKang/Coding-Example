@@ -47,8 +47,30 @@ BSTNode<Data>::BSTNode(const Data & d) : data(d), left(0), right(0), parent(0) {
 template <typename Data>
 BSTNode<Data>* BSTNode<Data>::successor()
 {
-  //TODO 
-  return NULL;
+  
+  if(right != nullptr) {// if this node has a right child
+    BSTNode<Data>* current = right; 
+    while(current->left != nullptr) {
+      current = current->left;
+    }
+    return current;
+  }
+  
+  else { // if this node has no right child. we go to the root
+    if(parent == nullptr) {return nullptr;}
+    BSTNode<Data>* current = parent;
+    // get the root node
+    while(current->parent != nullptr) { current = current->parent; }
+    // then find the leftmost node in the right subtree of root
+    if(current->right != nullptr) {
+      BSTNode<Data>* leftchild = current->right;
+      while(current->left != nullptr) {
+        leftchild = leftchild->left;
+      }
+      return leftchild;
+    }
+    else {return current;}   
+  }
 }
 
 /** Overload operator<< to print a BSTNode's fields to an ostream. */
