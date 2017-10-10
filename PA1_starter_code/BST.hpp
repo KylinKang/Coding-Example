@@ -116,6 +116,7 @@ template <typename Data>
 std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
   if(root == nullptr) { 
     root = new BSTNode<Data>(item); 
+    isize ++;
     return std::pair<BSTIterator<Data>, bool>(iterator(root), true);
   }
   
@@ -125,6 +126,7 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
       if(current->left == nullptr) {
         current->left = new BSTNode<Data>(item);
 	current->left->parent = current;
+	isize ++;
         return std::pair<BSTIterator<Data>, bool>(iterator(current->left), true);
       } 
       else {
@@ -136,7 +138,8 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
       if(current->right == nullptr) {
         current->right = new BSTNode<Data>(item);
 	current->right->parent = current;
-        return std::pair<BSTIterator<Data>, bool>(iterator(current->right), true);
+        isize ++;
+	return std::pair<BSTIterator<Data>, bool>(iterator(current->right), true);
       }
       else {
       	current = current->right;
@@ -195,10 +198,10 @@ unsigned int BST<Data>::height() const
 template <typename Data>
 unsigned int BST<Data>::heightHelper(BSTNode<Data>* current) const
 {
-  int leftlength = 0;
-  int rightlength = 0;
-  if(current->left != nullptr) { leftlength + heightHelper(current->left); }
-  if(current->right != nullptr) { rightlength + heightHelper(current->right); }
+  unsigned int leftlength = 0;
+  unsigned int rightlength = 0;
+  if(current->left != nullptr) { leftlength += heightHelper(current->left); }
+  if(current->right != nullptr) { rightlength += heightHelper(current->right); }
   if(leftlength < rightlength) { return 1 + rightlength; }
   else { return 1 + leftlength; }
 }
@@ -249,6 +252,7 @@ void BST<Data>::deleteAll(BSTNode<Data>* n)
 {
   if(n->left != nullptr) { deleteAll(n->left); }
   if(n->right != nullptr) { deleteAll(n->right); }
-  n = nullptr;
+  delete n;
+  isize = 0;
 }
 #endif //BST_HPP
