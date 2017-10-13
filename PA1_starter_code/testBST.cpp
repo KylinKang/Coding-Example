@@ -96,7 +96,20 @@ int main() {
 
     // ADD MORE TESTS HERE.  You might also want to change what is input
     // into the vector v.
-
+    BST<int> * bst = new BST<int>();
+    bst->insert(100);
+    bst->insert(101);
+    bst->insert(99);
+    bst->insert(102);
+    bst->insert(98);
+    BSTNode<int> * node = new BSTNode<int>(4);
+    node = nullptr;
+    cout << node->data << endl;
+    delete bst;
+    cout << "?????" << endl;
+    delete bst;
+    cout << "All tests passed!" << endl;
+    cout << *(bst->begin()) << endl;
     cout << "All tests passed!" << endl;
     return 0;
 }

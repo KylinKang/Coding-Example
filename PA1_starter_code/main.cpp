@@ -59,10 +59,8 @@ int main(int argc, char* argv[])
             
         }
 
-        // TODO: Get the height of the BST and store it in height
         height = actor.height();
 
-        // TODO: Get the size of the BST and store it in size
         size = actor.size();
 
         // DO NOT CHANGE THE LINES BELOW
@@ -74,8 +72,7 @@ int main(int argc, char* argv[])
             cout << "Enter actor/actress name: " << endl;
             getline(cin, name);
             
-            // TODO: Change the if statment to check is name is in the BST
-            if (*(actor.find(name)) == name) {
+            if (actor.find(name) != actor.end()) {
                 cout << name << " found!" << endl;
             }
             else {
