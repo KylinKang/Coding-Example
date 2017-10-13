@@ -211,8 +211,8 @@ unsigned int BST<Data>::height() const
 template <typename Data>
 unsigned int BST<Data>::heightHelper(BSTNode<Data>* current) const
 {
-  int leftlength = 0;
-  int rightlength = 0;
+  unsigned int leftlength = 0;
+  unsigned int rightlength = 0;
   if(current->left != nullptr) { leftlength += heightHelper(current->left); }
   if(current->right != nullptr) { rightlength += heightHelper(current->right); }
   if(leftlength < rightlength) { return 1 + rightlength; }
