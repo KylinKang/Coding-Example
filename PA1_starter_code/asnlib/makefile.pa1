@@ -1,0 +1,36 @@
+# A simple makefile for CSE 100 P1
+
+#use g++ for everything
+CC= g++  	
+
+# include debugging symbols in object files,
+# and enable all warnings
+CXXFLAGS= -g -Wall -O2 -std=c++11
+
+#include debugging symbols in executable
+LDFLAGS= -g	
+
+main: main.o
+	g++ -o main main.o
+
+main.o: BST.hpp BSTNode.hpp BSTIterator.hpp 
+
+fin_sub: fin_sub.o
+	g++ -o fin_sub fin_sub.o
+
+fin_sub.o: BST.hpp BSTNode.hpp BSTIterator.hpp 
+
+sub_test2: sub_test2.o
+	g++ -o sub_test2 sub_test2.o
+
+sub_test2.o: BST.hpp BSTNode.hpp BSTIterator.hpp 
+
+fin_tester: fin_tester.o
+	g++ -o fin_tester fin_tester.o
+
+fin_tester.o: BST.hpp BSTNode.hpp BSTIterator.hpp
+
+fin_grader: g++ -o fin_grader $ASNLIB/fin_grader.cpp $VLIB/c++/voc/libVocGrader.so -I$VLIB/c++/voc
+
+clean:
+	$(RM) main fin_sub sub_test2 fin_tester fin_grader *.o

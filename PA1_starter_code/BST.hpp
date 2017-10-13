@@ -1,3 +1,12 @@
+/*
+ * FileName: BST.hpp
+ * Author: Jiaxiao Zhou & Yuqi Kang
+ * Userid: A & A92048017
+ * Description: Defines all the variables and functions required to construct
+ *              a BST tree, and to add, find, delete nodes from it
+ * Date: 10/12/2017
+ */
+
 #ifndef BST_HPP
 #define BST_HPP
 #include "BSTNode.hpp"
@@ -9,19 +18,23 @@ class BST {
 
 public:
 
-  /** define iterator as an aliased typename for BSTIterator<Data>. */
+  /*
+   * define iterator as an aliased typename for BSTIterator<Data>. 
+   */
   typedef BSTIterator<Data> iterator;
 
-  /** Default constructor.
-      Initialize an empty BST.
-      This is inlined because it is trivial.
+  /*
+   * Default constructor.
+   * Initialize an empty BST.
+   * This is inlined because it is trivial.
    */
   BST() : root(nullptr), isize(0) {}
 
 
-  /** Default destructor.
-      Delete every node in this BST.
-  */
+  /*
+   * Default destructor.
+   * Delete every node in this BST.
+   */
   ~BST();
 
   /** Given a reference to a Data item, insert a copy of it in this BST.
@@ -57,7 +70,7 @@ public:
 
 
   /** Return true if the BST is empty, else false.
-   */ // TODO
+   */
   bool empty() const;
 
   /** Return an iterator pointing to the first (smallest) item in the BST.
@@ -116,6 +129,7 @@ template <typename Data>
 std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
   if(root == nullptr) { 
     root = new BSTNode<Data>(item); 
+    isize ++;
     return std::pair<BSTIterator<Data>, bool>(iterator(root), true);
   }
   
@@ -125,6 +139,7 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
       if(current->left == nullptr) {
         current->left = new BSTNode<Data>(item);
 	current->left->parent = current;
+	isize ++;
         return std::pair<BSTIterator<Data>, bool>(iterator(current->left), true);
       } 
       else {
@@ -136,7 +151,8 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
       if(current->right == nullptr) {
         current->right = new BSTNode<Data>(item);
 	current->right->parent = current;
-        return std::pair<BSTIterator<Data>, bool>(iterator(current->right), true);
+        isize ++;
+	return std::pair<BSTIterator<Data>, bool>(iterator(current->right), true);
       }
       else {
       	current = current->right;
@@ -187,7 +203,7 @@ template <typename Data>
 unsigned int BST<Data>::height() const
 {
   if(root == nullptr) { return 0; }
-  return heightHelper(root);
+  return heightHelper(root) - 1;
 }
 
 /** Helper method to find the height of BST
@@ -197,8 +213,8 @@ unsigned int BST<Data>::heightHelper(BSTNode<Data>* current) const
 {
   int leftlength = 0;
   int rightlength = 0;
-  if(current->left != nullptr) { leftlength + heightHelper(current->left); }
-  if(current->right != nullptr) { rightlength + heightHelper(current->right); }
+  if(current->left != nullptr) { leftlength += heightHelper(current->left); }
+  if(current->right != nullptr) { rightlength += heightHelper(current->right); }
   if(leftlength < rightlength) { return 1 + rightlength; }
   else { return 1 + leftlength; }
 }
@@ -249,6 +265,6 @@ void BST<Data>::deleteAll(BSTNode<Data>* n)
 {
   if(n->left != nullptr) { deleteAll(n->left); }
   if(n->right != nullptr) { deleteAll(n->right); }
-  n = nullptr;
+  delete n;
 }
 #endif //BST_HPP
