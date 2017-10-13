@@ -91,8 +91,7 @@ int main(int argc, char* argv[])
             cout << "Enter actor/actress name: " << endl;
             getline(cin, name);
             
-            // Change the if statment to check is name is in the BST
-            if (*(actor.find(name)) == name) {
+            if (actor.find(name) != actor.end()) {
                 cout << name << " found!" << endl;
             }
             else {

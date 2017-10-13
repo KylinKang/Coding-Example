@@ -70,6 +70,14 @@ int main() {
         cout << "success!" << endl;
     }
 
+    // test not find element
+    cout << "testing the element not in BST." << endl;
+    BSTIterator<int> notFound = btemp.find(325);
+    if( notFound != btemp.end() ) {
+	cout << ": Incorrect, not found should return iterator with nullptr";
+	return -1;
+    }
+
 
 
     // Test the iterator: The iterator should give an in-order traversal
@@ -101,13 +109,66 @@ int main() {
         }
         ++it;
     }
+   
+    // test height of the bst
+    cout << "testing height of the bst" << endl;
+      
+    auto height = btemp.height();
+    if( height != 2) {
+        cout << ": Incorrect height of BST." << endl;
+        return -1; 
+    }
+     
+    btemp.insert(500);
+    if( btemp.height() != 3) {
+        cout << ": Incorrect height of BST." << endl;
+	return -1;
+    }
+    
+    BST<int> emptyTree;
+    if( emptyTree.height() != 0 ) {
+	cout << ":  Incorrect height of BST." << endl;
+        return -1;
+    }
+   
+    cout << "the height is correct!" << endl;
 
+    // test size of the bst
+    cout << "testing size of the bst" << endl;
+    auto sizeBST = btemp.size();
+    if( sizeBST != 6 ) {
+        cout << ": Incorrect size of BST." << endl;
+        return -1;
+    }
+
+    // test empty of the bst
+    cout << "testing empty of the bst" << endl;
+    BST<int> emptyBST;
+    if( !emptyBST.empty() ) {
+	cout << ": Incorrect empty of BST." << endl;
+	return -1;
+    }
+
+    if( btemp.empty() ) {
+	cout << ": Incorrect empty of BST." << endl;
+	return -1;
+    }
+
+    // test inserting repeated element
+    cout << "testing inserting repeated element to the bst" << endl;
+    
+    auto repeatedResult = btemp.insert(500);
+    if(repeatedResult.second) {
+	cout << ": Incorrect inserting repeated element to BST." << endl;
+	return -1;
+    } 
+
+    if (*(repeatedResult.first) != 500) {
+        cout << "Wrong iterator returned.  "
+            << "Expected " << 500 << " but got " << *(repeatedResult.first) << endl;
+        return -1;
+    }
     cout << "success!" << endl;
-
-
-    // ADD MORE TESTS HERE.  You might also want to change what is input
-    // into the vector v.
-
     cout << "All tests passed!" << endl;
     return 0;
 }

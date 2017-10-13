@@ -140,7 +140,6 @@ std::pair<BSTIterator<Data>, bool> BST<Data>::insert(const Data& item) {
      isize ++;
      return std::pair<BSTIterator<Data>, bool>(iterator(root), true);
   }
-  
   BSTNode<Data>* current = root;
   
   // compare with current node data
@@ -195,18 +194,17 @@ template <typename Data>
 BSTIterator<Data> BST<Data>::find(const Data& item) const
 {
   // BST empty
-  if(root == nullptr) { return iterator(0); }
-  
+  if(root == nullptr) { return iterator(nullptr); }
   BSTNode<Data>* current = root;
   
   // compare with current node
   while(current->data < item || item < current->data) {
     if(item < current->data) { 
-      if(current->left == nullptr) {return iterator(current);}
+      if(current->left == nullptr) {return iterator(nullptr);}
       else { current = current->left; }
     }
     else {
-      if(current->right == nullptr) {return iterator(current); }
+      if(current->right == nullptr) {return iterator(nullptr); }
       else { current = current->right; }
     }
   }
@@ -333,8 +331,9 @@ BSTNode<Data>* BST<Data>::first(BSTNode<Data>* root)
 template <typename Data>
 void BST<Data>::deleteAll(BSTNode<Data>* n)
 {
-  if(n->left != nullptr) { deleteAll(n->left); }
-  if(n->right != nullptr) { deleteAll(n->right); }
+  if(n == nullptr) {return;}
+  deleteAll(n->left); 
+  deleteAll(n->right);
   delete n;
 }
 #endif //BST_HPP

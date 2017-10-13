@@ -25,7 +25,7 @@ public:
   BSTNode<Data>* left;
   BSTNode<Data>* right;
   BSTNode<Data>* parent;
-  Data const data;.
+  Data const data;
 
  /*
   * Name: Constructor.  
@@ -62,7 +62,7 @@ public:
  * Return Value: BSTNode 
  */
 template <typename Data>
-BSTNode<Data>::BSTNode(const Data & d):data(d), left(0), right(0), parent(0) {}
+BSTNode<Data>::BSTNode(const Data & d):left(0), right(0), parent(0), data(d){}
 
 /* 
  * Function Name: successor()
