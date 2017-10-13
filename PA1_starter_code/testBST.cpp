@@ -1,3 +1,12 @@
+/*
+ * FileName: BST.cpp
+ * Author: Jiaxiao Zhou & Yuqi Kang
+ * Userid: A14057703 & A92048017
+ * Descriptipon: Test functions included in BST to find bugs, and return 
+ *               whether constructed BST has passed the test
+ * Date: 10/12/2017
+ */
+
 #include "BST.hpp"
 #include "BSTIterator.hpp"
 
@@ -10,10 +19,12 @@
 using namespace std;
 
 /**
- * A test driver for the BST int class and class template.
- * PA1 CSE 100 2017
- * Based on code by Christine Alvarado
- * TODO: Add more tests
+ * Function name: main()
+ * Function prototype: int main()
+ * Description: A test driver for the BST int class and class template.
+ *              Based on code by Christine Alvarado
+ * Parameters: None
+ * Return Value: None
  */
 int main() {
 

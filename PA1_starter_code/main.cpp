@@ -1,3 +1,11 @@
+/*
+ * File Name: main.cpp
+ * Author: Jiaxiao Zhou & Yuqi Kang
+ * Userid: A14057703 & A92048017
+ * Description: Execute body for whole file
+ * Date: 10/12/2017
+ */
+
 #include "BST.hpp"
 #include <iostream>
 #include <algorithm>
@@ -16,6 +24,15 @@
 
 using namespace std;
 
+/*
+ * Function Name: main()
+ * Function Prototype: int main(int argc, char* argv[]
+ * Description: Execute body of function
+ * Parameters:
+ *       arg1: int argc -- the number of input args
+ *       arg2: char* argv[] -- string stored the input args
+ * Return Value: the exit status of main fuction
+ */
 int main(int argc, char* argv[])
 {
     //Size of tree should be stored in local variable size.
@@ -48,21 +65,21 @@ int main(int argc, char* argv[])
 	  
         // Follow the comments below to add code:
         
-        // TODO: Create a new BST here
+        // Create a new BST here
         BST<string> actor;
 
         
         while (getline(in, name)) {
             
-	    // TODO: add the name string to the BST
+	    // add the name string to the BST
 	    actor.insert(name);
             
         }
 
-        // TODO: Get the height of the BST and store it in height
+        // Get the height of the BST and store it in height
         height = actor.height();
 
-        // TODO: Get the size of the BST and store it in size
+        // Get the size of the BST and store it in size
         size = actor.size();
 
         // DO NOT CHANGE THE LINES BELOW
@@ -74,7 +91,7 @@ int main(int argc, char* argv[])
             cout << "Enter actor/actress name: " << endl;
             getline(cin, name);
             
-            // TODO: Change the if statment to check is name is in the BST
+            // Change the if statment to check is name is in the BST
             if (*(actor.find(name)) == name) {
                 cout << name << " found!" << endl;
             }
